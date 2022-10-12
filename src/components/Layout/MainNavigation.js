@@ -14,7 +14,7 @@ const MainNavigation = () => {
       <nav>
         <ul>
           <li>{ctx.isLogin ? "" : <Link to="/">Login</Link>}</li>
-          <li>{ctx.isLogin ? <Link to="/">Profile</Link> : ""}</li>
+          <li>{ctx.isLogin ? <Link to="/profile">Profile</Link> : ""}</li>
           <li>
             {ctx.isLogin ? <button onClick={ctx.logout}>Logout</button> : ""}
           </li>
