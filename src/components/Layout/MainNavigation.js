@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import Context from "../store/store";
 
 import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
+  const ctx = useContext(Context);
   return (
     <header className={classes.header}>
       <Link to="/">
@@ -10,14 +13,10 @@ const MainNavigation = () => {
       </Link>
       <nav>
         <ul>
+          <li>{ctx.isLogin ? "" : <Link to="/">Login</Link>}</li>
+          <li>{ctx.isLogin ? <Link to="/">Profile</Link> : ""}</li>
           <li>
-            <Link to="/auth">Login</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <button>Logout</button>
+            {ctx.isLogin ? <button onClick={ctx.logout}>Logout</button> : ""}
           </li>
         </ul>
       </nav>
