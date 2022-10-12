@@ -15,27 +15,38 @@ const AuthForm = () => {
     e.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
+
     setisLoading(true);
+
+    let url = "";
+    if (isLogin === true) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAZWnWVqZsnQYcTMGxbHuzjB87AyJACNb4"; // AIzaSyAZWnWVqZsnQYcTMGxbHuzjB87AyJACNb4 this is a project key found in project key
+    } else {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAZWnWVqZsnQYcTMGxbHuzjB87AyJACNb4"; // AIzaSyAZWnWVqZsnQYcTMGxbHuzjB87AyJACNb4 this is a project key found in project key
+    }
     try {
-      const response = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAZWnWVqZsnQYcTMGxbHuzjB87AyJACNb4", // AIzaSyAZWnWVqZsnQYcTMGxbHuzjB87AyJACNb4 this is a project key found in project key
-        {
-          // watch video to found above url vvv. Imp watch video for Api login,logout
-          method: "POST",
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(url, {
+        // watch video to found above url vvv. Imp watch video for Api login,logout
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.ok === false) {
         const message = await response.json(); // we always use if condition to handel with error while using fetch method
         console.log(message.error.message);
         throw new Error(message.error.message);
+      }
+      if (response.ok === true) {
+        const token = await response.json();
+        console.log(token.idToken);
       }
 
       setisLoading(false);
