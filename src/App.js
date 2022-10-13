@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Layout from "./components/Layout/Layout";
 import UserProfile from "./components/Profile/UserProfile";
@@ -18,12 +18,20 @@ function App() {
           <HomePage />
         </Route>
 
-        <Route path="/login">
-          <AuthPage />
-        </Route>
+        {!ctx.isLogin && (
+          <Route path="/login">
+            <AuthPage />
+          </Route>
+        )}
 
-        <Route path="/profile">
-          <UserProfile />
+        {ctx.isLogin && (
+          <Route path="/profile">
+            <UserProfile />
+          </Route>
+        )}
+        <Route path="*">
+          <Redirect to="/"></Redirect>
+          {/* we can redirect any where we want to do if above routers are to making condition */}
         </Route>
       </Switch>
       {/* {ctx.isLogin && <UserProfile></UserProfile>} */}
