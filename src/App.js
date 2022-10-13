@@ -14,19 +14,19 @@ function App() {
   return (
     <Layout>
       <Switch>
-        <Route path="/home">
+        <Route path="/" exact>
           <HomePage />
         </Route>
-        {!ctx.isLogin && (
-          <Route path="/" exact>
-            <AuthPage />
-          </Route>
-        )}
+
+        <Route path="/login">
+          <AuthPage />
+        </Route>
+
         <Route path="/profile">
           <UserProfile />
         </Route>
       </Switch>
-      {ctx.isLogin && <UserProfile></UserProfile>}
+      {/* {ctx.isLogin && <UserProfile></UserProfile>} */}
     </Layout>
   );
 }

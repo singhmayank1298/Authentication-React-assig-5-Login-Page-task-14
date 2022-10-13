@@ -1,4 +1,5 @@
 import { useContext, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import Context from "../store/store";
 import classes from "./ProfileForm.module.css";
 
@@ -6,6 +7,8 @@ const ProfileForm = () => {
   const ctx = useContext(Context);
 
   const newPasswordRef = useRef();
+
+  const history = useHistory();
 
   const changePasswordHandler = async (e) => {
     e.preventDefault();
@@ -30,6 +33,7 @@ const ProfileForm = () => {
         },
       }
     );
+    history.replace("/"); // (/ ) means go to home page
     console.log(response);
   };
 

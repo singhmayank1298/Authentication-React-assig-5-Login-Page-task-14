@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Context from "./store";
+import { useHistory } from "react-router-dom";
 
 const StoreProvider = (props) => {
   const [responseAPI, setresponseAPI] = useState("");
+  const history = useHistory();
 
   const isUserLogin = !!responseAPI; // spacial check true or false
 
@@ -11,7 +13,8 @@ const StoreProvider = (props) => {
   };
 
   const cleanUpHandler = () => {
-    setresponseAPI("");
+    setresponseAPI(null);
+    history.replace("/login");
   };
 
   console.log(responseAPI);

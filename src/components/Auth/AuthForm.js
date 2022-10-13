@@ -1,4 +1,5 @@
 import { useContext, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Context from "../store/store";
 import classes from "./AuthForm.module.css";
 
@@ -7,6 +8,7 @@ const AuthForm = () => {
   const passwordInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setisLoading] = useState(false);
+  const history = useHistory();
 
   const ctx = useContext(Context);
 
@@ -50,6 +52,8 @@ const AuthForm = () => {
       if (response.ok === true) {
         const token = await response.json();
         ctx.tokenStateUpDate(token.idToken);
+
+        history.replace("/"); // means go to the home page
         console.log(token.idToken);
       }
 
